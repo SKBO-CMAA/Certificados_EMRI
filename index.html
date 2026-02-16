@@ -1,61 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Certificados por Estación</title>
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f4f6f9;
-            padding: 40px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .contenedor {
-            max-width: 800px;
-            margin: auto;
-        }
-        .card {
-            background: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        a {
-            text-decoration: none;
-            background: #007bff;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-        }
-        a:hover {
-            background: #0056b3;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF List</title>
 </head>
 <body>
+    <h1>Download PDF Files</h1>
+    <ul id="pdf-list"></ul>
+    <script>
+        const pdfFolder = 'pdf/';
+        const pdfFiles = [
+            'file1.pdf',
+            'file2.pdf',
+            'file3.pdf',
+            // Add more files here
+        ];
 
-<div class="contenedor">
-    <h1>Certificados por Estación</h1>
+        const pdfListElement = document.getElementById('pdf-list');
 
-    <div class="card">
-        <span>Estación 01</span>
-        <a href="pdf/estacion_01.pdf" target="_blank">Ver / Descargar</a>
-    </div>
-
-    <div class="card">
-        <span>Estación 02</span>
-        <a href="pdf/estacion_02.pdf" target="_blank">Ver / Descargar</a>
-    </div>
-
-    <!-- Repetir hasta las 27 estaciones -->
-
-</div>
-
+        pdfFiles.forEach(file => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = pdfFolder + file;
+            link.textContent = file;
+            link.download = file;
+            listItem.appendChild(link);
+            pdfListElement.appendChild(listItem);
+        });
+    </script>
 </body>
 </html>
