@@ -302,27 +302,29 @@
         }
 
         function previewPDF(filename) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);    
+            if (isMobile) {
+                // En móvil no usamos preview, vamos directo al PDF
+                window.open(`pdf/${filename}`, '_blank');
+                return;
+            }
+
             const previewContainer = document.getElementById('previewContainer');
             const pdfViewer = document.getElementById('pdfViewer');
             const previewTitle = document.getElementById('previewTitle');
-            
+    
             previewTitle.textContent = filename;
             pdfViewer.innerHTML = `
-                <embed 
-                    src="pdf/${filename}" 
-                    type="application/pdf" 
-                    width="100%" 
-                    height="100%"
-                />
+            <iframe 
+                src="pdf/${filename}" 
+                width="100%" 
+                height="100%">
+            </iframe>
             `;
+    
             previewContainer.classList.add('active');
-            
-            // Update active item
-            document.querySelectorAll('.pdf-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
         }
+
 
         function closePreview() {
             const previewContainer = document.getElementById('previewContainer');
@@ -332,13 +334,14 @@
             });
         }
 
-        function downloadPDF(filename, event) {
-            event.stopPropagation();
-            const link = document.createElement('a');
-            link.href = `pdf/${filename}`;
-            link.download = filename;
-            link.click();
-        }
+       // function downloadPDF(filename, event) {
+        //    event.stopPropagation();
+          //  window.open(`pdf/${filename}`, '_blank');
+            //const link = document.createElement('a');
+            //link.href = `pdf/${filename}`;
+            //link.download = filename;
+            //link.click();
+        //}
 
         function loadPDFs() {
             const pdfList = document.getElementById('pdfList');
@@ -356,6 +359,12 @@
                     </div>
                     <div class="pdf-footer">
                         <div class="pdf-size">Tap to preview</div>
+                        <a class="download-btn"
+                           href="pdf/${filename}"
+                           target="_blank"
+                           rel="noopener">
+                           ⬇ Download
+                        </a>
                         <button class="download-btn" onclick="downloadPDF('${filename}', event)">⬇ Download</button>
                     </div>
                 </div>
