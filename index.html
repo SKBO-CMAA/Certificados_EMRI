@@ -361,10 +361,10 @@
                         <div class="pdf-size">Tap to preview</div>
                         <a class="download-btn"
                            href="pdf/${filename}"
-                           target="_blank"
-                           rel="noopener">
-                           ⬇ Download
-                        </a>                        
+                           download
+                           onclick="event.stopPropagation();">
+                           ⬇
+                        </a>                     
                     </div>
                 </div>
             `).join('');
