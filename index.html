@@ -369,18 +369,10 @@
         
         document.addEventListener("DOMContentLoaded", createTree);
 
-        const pdfFiles = [
-            'EMRI_1.pdf',
+        //const pdfFiles = [
+        //    'EMRI_1.pdf',
             // Add more PDF files here
-        ];
-
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
-        }
+        //];
 
         function previewPDF(filename) {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);    
@@ -423,36 +415,8 @@
             //link.download = filename;
             //link.click();
         //}
-
-        function loadPDFs() {
-            const pdfList = document.getElementById('pdfList');
-            
-            if (pdfFiles.length === 0) {
-                pdfList.innerHTML = '<div class="empty-message">No PDF files available</div>';
-                return;
-            }
-
-            pdfList.innerHTML = pdfFiles.map(filename => `
-                <div class="pdf-item" onclick="previewPDF('${filename}')">
-                    <div class="pdf-header">
-                        <div class="pdf-icon">📕</div>
-                        <div class="pdf-name">${filename}</div>
-                    </div>
-                    <div class="pdf-footer">
-                        <div class="pdf-size">Tap to preview</div>
-                        <a class="download-btn"
-                           href="pdf/${filename}"
-                           download
-                           onclick="event.stopPropagation();">
-                           ⬇
-                        </a>                     
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Load PDFs when page loads
-        document.addEventListener('DOMContentLoaded', loadPDFs);
+                // Load PDFs when page loads
+        document.addEventListener('DOMContentLoaded', createTree);
 
         // Handle back button on mobile
         window.addEventListener('popstate', function(event) {
