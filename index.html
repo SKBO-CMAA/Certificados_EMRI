@@ -293,26 +293,49 @@
             "EMRI_2": ["EMRI_1.pdf", "EMRI_1.pdf", "BOSA_3.pdf", "BOSA_4.pdf"],
             "EMRI_3": ["SUBA_1.pdf", "SUBA_2.pdf", "SUBA_3.pdf", "SUBA_4.pdf"]
         };
-        const container = document.getElementById("pdfContainer");
-
-        for (let estacion in estaciones) {
         
-            const section = document.createElement("div");
-            section.innerHTML = `<h2>${estacion}</h2>`;
-            
-            estaciones[estacion].forEach(file => {
-                const card = document.createElement("div");
-                card.innerHTML = `
-                    <a href="pdf/${estacion}/${file}" target="_self">
-                        ${file}
-                    </a>
-                `;
-                section.appendChild(card);
-            });
+        const container = document.getElementById("pdfList");
         
-            container.appendChild(section);
+        function createTree() {
+            container.innerHTML = "";
+        
+            for (let estacion in estaciones) {
+                const folder = document.createElement("div");
+                folder.className = "folder";
+        
+                const header = document.createElement("div");
+                header.className = "folder-header";
+                header.innerHTML = `📁 ${estacion}`;
+                
+                const fileList = document.createElement("div");
+                fileList.className = "file-list";
+                fileList.style.display = "none";
+        
+                estaciones[estacion].forEach(file => {
+                    const fileItem = document.createElement("div");
+                    fileItem.className = "file-item";
+                    fileItem.innerHTML = `
+                        📄 ${file}
+                        <a href="pdf/${estacion}/${file}" 
+                           download 
+                           class="download-link">⬇</a>
+                    `;
+                    fileList.appendChild(fileItem);
+                });
+        
+                header.onclick = () => {
+                    fileList.style.display =
+                        fileList.style.display === "none" ? "block" : "none";
+                };
+        
+                folder.appendChild(header);
+                folder.appendChild(fileList);
+                container.appendChild(folder);
+            }
         }
         
+        document.addEventListener("DOMContentLoaded", createTree);
+
         const pdfFiles = [
             'EMRI_1.pdf',
             // Add more PDF files here
