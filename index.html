@@ -285,9 +285,34 @@
             <div class="pdf-viewer" id="pdfViewer"></div>
         </div>
     </div>
-
+    <div id="pdfContainer"></div>
     <script>
         // List of PDF files in the pdf folder
+        const estaciones = {
+            "EMRI_1": ["HV-SONOMETRO- CU-10804-ACT 3.pdf","20250930 CC-SLM-A374-PC01-E02.pdf","20250930 CC-SLM-A374-PC02-E02.pdf","Certificado No. CAF-10804-251688-TER_ok.pdf"],
+            "EMRI_2": ["EMRI_1.pdf", "EMRI_1.pdf", "BOSA_3.pdf", "BOSA_4.pdf"],
+            "EMRI_3": ["SUBA_1.pdf", "SUBA_2.pdf", "SUBA_3.pdf", "SUBA_4.pdf"]
+        };
+        const container = document.getElementById("pdfContainer");
+
+        for (let estacion in estaciones) {
+        
+            const section = document.createElement("div");
+            section.innerHTML = `<h2>${estacion}</h2>`;
+            
+            estaciones[estacion].forEach(file => {
+                const card = document.createElement("div");
+                card.innerHTML = `
+                    <a href="pdf/${estacion}/${file}" target="_self">
+                        ${file}
+                    </a>
+                `;
+                section.appendChild(card);
+            });
+        
+            container.appendChild(section);
+        }
+        
         const pdfFiles = [
             'EMRI_1.pdf',
             // Add more PDF files here
